@@ -1,47 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Carrito from './components/Carrito';
 import ListaProductos from './components/ListaProductos';
+import Administracion from './components/Administracion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
+
   const usuario = "User";
   const tipo = "Administrador";
 
   const navItems = ["Inicio", "Productos", "Carrito"];
 
   const [seccion, setSeccion] = useState("Inicio");
-
   const [carrito, setCarrito] = useState([]);
 
-    const productos = [
-      {
-        'id': 1,
-        'nombre': 'Remera',
-        'precio': 200,
-        'cantidad': 0
-      },{
-        'id': 2,
-        'nombre': 'Pantalon',
-        'precio': 300,
-        'cantidad': 0
-      },{
-        'id': 3,
-        'nombre': 'Campera',
-        'precio': 500,
-        'cantidad': 0
-      },{
-        'id': 4,
-        'nombre': 'Gorro',
-        'precio': 50,
-        'cantidad': 0
-      }
-    ]
 
+
+  //electronics, jewelery
  // Productos Ofertas >>>>>>>>> Administracion Carrito [N]
   const renderContenido = () => 
     {
@@ -49,7 +29,13 @@ function App() {
       case "Inicio":
         return <Home />;
       case "Productos":
-        return <ListaProductos productos={productos} carrito={carrito} setCarrito={setCarrito} />;
+        return <ListaProductos carrito={carrito} setCarrito={setCarrito} />;
+      case "Joyeria":
+        return <></>;
+      case "Electronicos":
+        return <></>;
+      case "Administracion":
+        return <Administracion></Administracion>;
       case "Carrito":
         return <Carrito carrito={carrito} />;
       default:

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 function Carrito ({ carrito }) {
 
-    const total = carrito.reduce((suma, producto) => suma + producto.precio, 0);
+    const total = carrito.reduce((suma, producto) => suma + producto.precio * producto.cantidad, 0);
     
     return(
     <div class="container" >
@@ -11,9 +11,9 @@ function Carrito ({ carrito }) {
             carrito.map((producto)=>( 
                 <div key={producto.id} class="row p-2 border-top">
                     <div class="col">
-                        <h3>{producto.nombre}</h3>
+                        <span class="h4">{producto.nombre} { producto.cantidad > 1 && (<span>(x{producto.cantidad})</span>) }</span>
                     </div>
-                    <div class="col">
+                    <div class="col-1">
                         <div class="d-flex justify-content-end">
                             <p>$ {producto.precio}</p>
                         </div>
@@ -28,7 +28,7 @@ function Carrito ({ carrito }) {
             </div>
             <div class="col">
                 <div class="d-flex justify-content-end">
-                    <p>$ {total}</p>
+                    <p>$ {total.toFixed(2)}</p>
                 </div>
             </div>
         </div> 

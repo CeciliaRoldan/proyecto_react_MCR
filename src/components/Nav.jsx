@@ -1,6 +1,4 @@
-import React from 'react';
 import { Nav as BootstrapNav, Navbar, Container } from 'react-bootstrap';
-//bg="dark"
 
 function Nav({ items, onSeleccion }) {
   return (
