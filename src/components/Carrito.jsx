@@ -13,7 +13,7 @@ function Carrito ({ carrito }) {
                     <div class="col">
                         <span class="h4">{producto.nombre} { producto.cantidad > 1 && (<span>(x{producto.cantidad})</span>) }</span>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <div class="d-flex justify-content-end">
                             <p>$ {producto.precio}</p>
                         </div>

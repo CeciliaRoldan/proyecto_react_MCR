@@ -2,21 +2,6 @@ import { Nav as BootstrapNav, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
-/*
-            <BootstrapNav.Link key={item} onClick={() => onSeleccion(item)}>
-              {item}
-            </BootstrapNav.Link>
-
-    <div class="container"  style={{backgroundColor:"lavender"}}>
-      <nav>
-        <ul>
-        <li><Link to="/">Inicio</Link></li>
-        <li><Link to="/productos">Productos</Link></li>
-        </ul>
-      </nav>
-    </div>
-*/
-
 function Nav({ items, onSeleccion }) {
   return (
     <Navbar  expand="sm" style={{backgroundColor:"lavender"}}>
