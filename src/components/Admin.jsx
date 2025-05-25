@@ -1,7 +1,9 @@
 function Admin () {
 
     return(
-        <div></div>
+        <div>
+            <h1>Administrar ...</h1>
+        </div>
     )
 }
 

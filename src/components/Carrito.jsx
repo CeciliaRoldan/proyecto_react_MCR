@@ -7,6 +7,7 @@ function Carrito ({ carrito }) {
     
     return(
     <div class="container" >
+        <h3 className="p-2">Disfraces seleccionados:</h3>
         {
             carrito.map((producto)=>( 
                 <div key={producto.id} class="row p-2 border-top">
