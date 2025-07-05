@@ -4,11 +4,10 @@ import Swal from 'sweetalert2';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import Home from './components/Home';
 import Carrito from './components/Carrito';
 import Productos from './components/Productos';
 import DetalleProducto from './components/DetalleProducto'
-import Admin from './components/Admin';
+import Login from './components/Login';
 import RutaProtegida from './components/RutaProtegida';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -20,8 +19,6 @@ function App() {
   const usuario = "User";
   const tipo = "Administrador";
 
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-
   return (
   <div className="d-flex flex-column min-vh-100">
     <Header tipo={tipo} usuario={usuario} />
@@ -31,15 +28,9 @@ function App() {
         <Route path="/" element={<Productos />} />
         <Route path="/productos/:categoria" element={<Productos />} />
         <Route path="/producto/:id" element={<DetalleProducto />} />
-        <Route path="/admin" element={
-          <RutaProtegida isAuthenticated={isAuthenticated}>
-            <Admin />
-          </RutaProtegida> } 
-        />
+        <Route path="/login" element={<Login />} />
         <Route path="/carrito" element={
-          <RutaProtegida isAuthenticated={isAuthenticated}>
-            <Carrito />
-          </RutaProtegida> } 
+          <RutaProtegida > <Carrito /> </RutaProtegida> } 
         />
         <Route path="*" element={<Navigate to="/" replace/>}/>
       </Routes>

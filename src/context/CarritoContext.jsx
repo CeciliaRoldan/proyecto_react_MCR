@@ -35,7 +35,7 @@ export const CarritoProvider = ({ children }) =>
         icon: "success",
         title: 'Se agrego '+ producto_nuevo.name +' al carrito',
         showConfirmButton: false,
-        timer: 1500
+        timer: 1000
         });
     }
 
@@ -48,7 +48,7 @@ export const CarritoProvider = ({ children }) =>
             icon: "success",
             title: 'Se eliminó el producto '+ producto_elim.nombre +' del carrito',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1000
         });
     }
 
@@ -68,7 +68,7 @@ export const CarritoProvider = ({ children }) =>
                 icon: "success",
                 title: 'Se vació el carrito',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1000
                 });
             }
         });

@@ -2,15 +2,16 @@ import { Nav as BootstrapNav, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
+import { useAuthContext } from '../context/AuthContext';
 
 
 function Nav({ }) {
   
   const { carrito } = useContext(CarritoContext);
+  const { user } = useAuthContext();
 
   const cantProductos = carrito.reduce((acum,actual) => {return actual.cantidad + acum},0);
 
-  //<BootstrapNav.Link as={Link} to="/">Home</BootstrapNav.Link>
 
   return (
     <Navbar expand="sm" style={{backgroundColor:"lavender"}}>
@@ -23,8 +24,8 @@ function Nav({ }) {
             <BootstrapNav.Link as={Link} to="/productos/ravenclaw">Ravenclaw</BootstrapNav.Link>
         </BootstrapNav>
         <BootstrapNav className="mr-2">
-            <BootstrapNav.Link as={Link} to="/admin">Admin</BootstrapNav.Link>
-            <BootstrapNav.Link as={Link} to="/carrito">Carrito [{cantProductos}]</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="/login">{ user ? user : "Login" }</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="/carrito">{ user ? `Carrito [${cantProductos}]`: "" }</BootstrapNav.Link>
         </BootstrapNav>
 
       </Container>
