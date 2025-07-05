@@ -1,22 +1,43 @@
 import React from 'react';
 import { useState } from "react";
+import { useContext } from 'react';
+import { CarritoContext } from '../context/CarritoContext';
+import { FaTrash } from 'react-icons/fa';
 
-function Carrito ({ carrito }) {
+
+function Carrito ({ }) {
+
+    const { carrito, handleEliminar, handleVaciar } = useContext(CarritoContext);
 
     const total = carrito.reduce((suma, producto) => suma + producto.precio * producto.cantidad, 0);
     
     return(
-    <div class="container" >
-        <h3 className="p-2">Disfraces seleccionados:</h3>
+    <div class="container" >  
+        <div class="row">
+            <div class="col">
+                <h3 className="p-2">Disfraces seleccionados:</h3>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-danger" onClick={() => handleVaciar()}>Vaciar Carrito</button>
+                </div>
+            </div>
+        </div>                  
+        
         {
             carrito.map((producto)=>( 
                 <div key={producto.id} class="row p-2 border-top">
                     <div class="col">
                         <span class="h4">{producto.nombre} { producto.cantidad > 1 && (<span>(x{producto.cantidad})</span>) }</span>
                     </div>
-                    <div class="col-2">
+                    <div class="col">
                         <div class="d-flex justify-content-end">
                             <p>$ {producto.precio}</p>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-danger" onClick={() => handleEliminar(producto)}><FaTrash /></button>
                         </div>
                     </div>
                 </div> 
@@ -32,6 +53,7 @@ function Carrito ({ carrito }) {
                     <p>$ {total.toFixed(2)}</p>
                 </div>
             </div>
+            <div class="col-1"></div> 
         </div> 
     </div>
     )

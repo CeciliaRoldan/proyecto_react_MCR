@@ -1,8 +1,12 @@
 import { Nav as BootstrapNav, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CarritoContext } from '../context/CarritoContext';
 
 
-function Nav({ carrito }) {
+function Nav({ }) {
+  
+  const { carrito } = useContext(CarritoContext);
 
   const cantProductos = carrito.reduce((acum,actual) => {return actual.cantidad + acum},0);
 

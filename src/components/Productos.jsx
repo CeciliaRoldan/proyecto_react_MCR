@@ -1,10 +1,14 @@
 import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { CarritoContext } from '../context/CarritoContext';
 
-
-function Productos({ agregarAlCarrito }) {
+function Productos({ }) {
     
     const { categoria } = useParams();
+    
+    const { agregarAlCarrito } = useContext(CarritoContext);
+
     const [productos, setProductos] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
