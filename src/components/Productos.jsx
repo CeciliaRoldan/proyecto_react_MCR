@@ -17,10 +17,11 @@ function Productos({ }) {
     useEffect(()=>{
         setCargando(true);
 
-        let url = 'https://hp-api.onrender.com/api/characters';
+        let url = 'https://686a845ce559eba908703286.mockapi.io/api/v1/productos';
 
         if (categoria) 
-            url = url + '/house/' + categoria;
+            url = url + '?nombre=' + categoria;
+        
         
         fetch(url)
         .then(response => response.json())
@@ -53,20 +54,16 @@ function Productos({ }) {
             productos.map((producto)=>( 
                 <div class="card" href={`/producto/${producto.id}`} style={{width: "22rem"}} >
                     <a href={`/producto/${producto.id}`} class="card-header text-decoration-none" style={{backgroundColor:"aquamarine"}}>
-                        {producto.name}
+                        {producto.nombre}
                     </a>
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <img class="card-img m-auto" src={producto.image} alt={"Imagen "+producto.name} style={{width:"150px",height:"200px"}}></img>
+                            <img class="card-img m-auto" src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width:"150px",height:"200px"}}></img>
                         </div>
-                          <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Género: <strong>{producto.gender}</strong></li>
-                            <li class="list-group-item">Varita: <strong>{producto.wand.wood ? producto.wand.wood : "-"}</strong></li>
-                            <li class="list-group-item">Casa: <strong>{producto.house ? producto.house : "-"}</strong></li>
-                        </ul>
+                          <p>{producto.descripcion.slice(0,100)}</p>
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
-                        <span>{producto.yearOfBirth ? `Precio: $ ${producto.yearOfBirth}` : 'No disponible'}</span>
+                        <span>{producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'}</span>
                         <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark">Agregar al Carrito</button>
                     </div>
                 </div>

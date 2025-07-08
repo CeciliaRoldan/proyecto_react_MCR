@@ -16,15 +16,15 @@ function DetalleProducto({  }) {
 
   
     useEffect(()=>{
-        fetch('https://hp-api.onrender.com/api/character/'+id)
+        fetch('https://686a845ce559eba908703286.mockapi.io/api/v1/productos/'+id)
         .then(response => response.json())
         .then(data => {
-            setProducto(data[0]); 
+            setProducto(data); 
             setCargando(false);
             })
         .catch(error => {
             console.log(error);
-            setError("Ocurrio un error al cargar el personaje!");
+            setError("Ocurrio un error al cargar el producto!");
             setCargando(false);
         });
     }, []);
@@ -38,35 +38,24 @@ function DetalleProducto({  }) {
 
     if (error) return ( <h3>{error}</h3> );
 
-    // id name alternate_names species gender house dateOfBirth yearOfBirth wizard ancestry eyeColour
-    // hairColour wand patronus hogwartsStudent hogwartsStaff actor alternate_actors alive image	
-
     return (
         <div class="container" >
             <Row>
                 <Col>
-                    <h1>{producto.name}</h1>
+                    <h1>{producto.nombre}</h1>
                 </Col>
             </Row>
             <Row>
-                <Col className="d-flex align-items-center">
-                    <img src={producto.image} alt={"Imagen "+producto.name}/>
+                <Col className="d-flex align-items-center" > 
+                    <img src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width: "500px"}}/>
                 </Col>
                 <Col>
-                    <ul class="list-group">
-                        <li class="list-group-item">Género: <strong>{producto.gender}</strong></li>
-                        <li class="list-group-item">Varita: <strong>{producto.wand.wood ? producto.wand.wood : "-"}</strong></li>
-                        <li class="list-group-item">Especie: <strong>{producto.species ? producto.species : "-"}</strong></li>
-                        <li class="list-group-item">Ojos: <strong>{producto.eyeColour ? producto.eyeColour : "-"}</strong></li>
-                        <li class="list-group-item">Pelo: <strong>{producto.hairColour ? producto.hairColour : "-"}</strong></li>
-                        <li class="list-group-item">Ancestros: <strong>{producto.ancestry ? producto.ancestry : "-"}</strong></li>
-                        <li class="list-group-item">Casa: <strong>{producto.house ? producto.house : "-"}</strong></li>
-                    </ul>
+                    <p>{producto.descripcion}</p>
                 </Col>
             </Row>
             <Row>
                 <Col className="d-flex pt-3">
-                    <h4> {producto.yearOfBirth ? `Precio: $ ${producto.yearOfBirth}` : 'No disponible'} </h4>
+                    <h4> {producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'} </h4>
 
                     <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark ms-auto">
                         Agregar al Carrito

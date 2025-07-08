@@ -18,13 +18,13 @@ function Nav({ }) {
       <Container>
         <BootstrapNav className="me-auto">
             <BootstrapNav.Link as={Link} to="/">Todos</BootstrapNav.Link>
-            <BootstrapNav.Link as={Link} to="/productos/gryffindor">Gryffindor</BootstrapNav.Link>
-            <BootstrapNav.Link as={Link} to="/productos/slytherin">Slytherin</BootstrapNav.Link>
-            <BootstrapNav.Link as={Link} to="/productos/hufflepuff">Hufflepuff</BootstrapNav.Link>
-            <BootstrapNav.Link as={Link} to="/productos/ravenclaw">Ravenclaw</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="/productos/gorilla">Gorilas</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="/productos/snake">Serpientes</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="/productos/crocodile">Cocodrilos</BootstrapNav.Link>
         </BootstrapNav>
         <BootstrapNav className="mr-2">
             <BootstrapNav.Link as={Link} to="/login">{ user ? user : "Login" }</BootstrapNav.Link>
+            <BootstrapNav.Link as={Link} to="/admin">{ user ? "Administrar" : "Administrar" }</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/carrito">{ user ? `Carrito [${cantProductos}]`: "" }</BootstrapNav.Link>
         </BootstrapNav>
 

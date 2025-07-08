@@ -27,13 +27,13 @@ export const CarritoProvider = ({ children }) =>
 
         // Si el carrito no tiene el producto lo agrega
         if (!encontrado) setCarrito([...carrito, {  id: producto_nuevo.id, 
-                                                    nombre: producto_nuevo.name, 
-                                                    precio: producto_nuevo.yearOfBirth,
+                                                    nombre: producto_nuevo.nombre, 
+                                                    precio: producto_nuevo.precio,
                                                     cantidad: 1 }]);
         
         Swal.fire({
         icon: "success",
-        title: 'Se agrego '+ producto_nuevo.name +' al carrito',
+        title: 'Se agrego '+ producto_nuevo.nombre +' al carrito',
         showConfirmButton: false,
         timer: 1000
         });

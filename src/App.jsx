@@ -9,19 +9,19 @@ import Productos from './components/Productos';
 import DetalleProducto from './components/DetalleProducto'
 import Login from './components/Login';
 import RutaProtegida from './components/RutaProtegida';
+import AdminProductos from './components/AdminProductos';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+//          <RutaProtegida> <AdminProductos/> </RutaProtegida> } 
 
 
 function App() {
 
-  const usuario = "User";
-  const tipo = "Administrador";
 
   return (
   <div className="d-flex flex-column min-vh-100">
-    <Header tipo={tipo} usuario={usuario} />
+    <Header/>
     <Nav/>
     <div className="flex-grow-1 p-3">
       <Routes>
@@ -29,8 +29,11 @@ function App() {
         <Route path="/productos/:categoria" element={<Productos />} />
         <Route path="/producto/:id" element={<DetalleProducto />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={
+           <AdminProductos/> } 
+        />
         <Route path="/carrito" element={
-          <RutaProtegida > <Carrito /> </RutaProtegida> } 
+          <RutaProtegida> <Carrito/> </RutaProtegida> } 
         />
         <Route path="*" element={<Navigate to="/" replace/>}/>
       </Routes>
