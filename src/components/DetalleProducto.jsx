@@ -3,33 +3,28 @@ import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
+import { ProductosContext } from '../context/ProductosContext';
 
 function DetalleProducto({  }) {
 
     const { id } = useParams();
 
     const { agregarAlCarrito } = useContext(CarritoContext);
+    const { productos, cargando, error } = useContext(ProductosContext);
 
-    const [producto, setProducto] = useState([]);
-    const [cargando, setCargando] = useState(true);
-    const [error, setError] = useState(null);
 
-  
+    const [producto, setProducto] = useState(null);
+
     useEffect(()=>{
-        fetch('https://686a845ce559eba908703286.mockapi.io/api/v1/productos/'+id)
-        .then(response => response.json())
-        .then(data => {
-            setProducto(data); 
-            setCargando(false);
-            })
-        .catch(error => {
-            console.log(error);
-            setError("Ocurrio un error al cargar el producto!");
-            setCargando(false);
-        });
-    }, []);
+        //console.log('productos detalle ', productos);
 
-    if (cargando) return (
+        setProducto(productos.find(p => String(p.id) === String(id)));
+
+
+    }, [productos]);
+
+
+    if (cargando || !producto) return (
         <div>
             <span class="h4">Cargando</span>
             <div class="spinner-border mx-3" role="status"></div>
@@ -47,7 +42,7 @@ function DetalleProducto({  }) {
             </Row>
             <Row>
                 <Col className="d-flex align-items-center" > 
-                    <img src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width: "500px"}}/>
+                    <img src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width: "500px", height: "500px"}}/>
                 </Col>
                 <Col>
                     <p>{producto.descripcion}</p>

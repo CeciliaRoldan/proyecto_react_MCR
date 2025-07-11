@@ -1,69 +1,83 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { ProductosContext } from '../context/ProductosContext';
+import { Link } from 'react-router-dom';
 
-function AdminProductos({ onAgregar }) {
 
-    const [producto, setProducto] = useState({
-        nombre: '',
-        precio: '',
-        descripcion: '',
-    });
+function AdminProductos({}) {
 
-    const [errores, setErrores] = useState({});
+    const { productos, cargando, error } = useContext(ProductosContext);
+    const [ listaProductos, setListaProductos ] = useState([]);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setProducto({ ...producto, [name]: value });
-    };
+    useEffect(()=>{
+        console.log('productos admin ', productos);
+        setListaProductos(productos);
+    }, [productos]);
 
-    const validarFormulario = () => {
+    if (cargando || !productos) return (
+        <div>
+            <span class="h4">Cargando</span>
+            <div class="spinner-border mx-3" role="status"></div>
+        </div>
+    );
 
-        const nuevosErrores = {};
-        if (!producto.nombre.trim()) {
-            nuevosErrores.nombre = 'Ingrese un nombre.';
-        }
-        if (!producto.precio || producto.precio <= 0) {
-            nuevosErrores.precio = 'El precio debe ser mayor a 0.';
-        }
-        if (!producto.descripcion.trim() || producto.descripcion.length < 10)
-        {
-            nuevosErrores.descripcion = 'La descripción debe tener al menos 10 caracteres.';
-        }
-        setErrores(nuevosErrores);
-        return Object.keys(nuevosErrores).length === 0;
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (validarFormulario()) {
-            agregarProducto(producto);
-            setProducto({ nombre: '', precio: '', descripcion: '' });
-            setErrores({});
-        }
-    };
-
-    const agregarProducto = async (producto) => {
-        try {
-            const respuesta = await fetch('https://686a845ce559eba908703286.mockapi.io/api/v1/productos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(producto),
-            });
-            if (!respuesta.ok) {
-                throw new Error('Error al agregar el producto.');
-            }
-            const data = await respuesta.json();
-            console.log('Producto agregado:', data);
-                alert('Producto agregado correctamente');
-        } catch (error) {
-            console.error(error.message);
-            alert('Hubo un problema al agregar el producto.');
-        }
-    };
+    if (error) return ( <h3>{error}</h3> );
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div class="container">
+            <h1>Administrar Productos</h1>
+            <Link to={`/editar/agregar/0`} >
+                <button className="btn btn-dark">Agregar Producto</button>
+            </Link>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        productos.map((producto) => (
+                            <tr>
+                            <th scope="row">{producto.id}</th>
+                            <td>{producto.nombre}</td>
+                            <td>                
+                                <Link to={`/editar/editar/${producto.id}`} className="card-header text-decoration-none" style={{backgroundColor:"aquamarine"}}>
+                                    Editar
+                                </Link>
+                            </td>    
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </div>
+    );
+    
+}/*
+{
+            listaProductos.map((producto)=>( 
+                <div class="card" href={`/producto/${producto.id}`} style={{width: "22rem"}} >
+                    <Link to={`/producto/${producto.id}`} className="card-header text-decoration-none" style={{backgroundColor:"aquamarine"}}>
+                        {producto.nombre}
+                    </Link>
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <img class="card-img m-auto" src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width:"150px",height:"200px"}}></img>
+                        </div>
+                          <p>{producto.descripcion.slice(0,100)}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <span>{producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'}</span>
+                        <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark">Agregar al Carrito</button>
+                    </div>
+                </div>
+            ))  
+        }
+<form>
         <h2>Agregar Producto</h2>
         <div>
             <label>Nombre:</label>
@@ -94,9 +108,9 @@ function AdminProductos({ onAgregar }) {
             />
             {errores.descripcion && <p style={{ color: 'red'}}>{errores.descripcion}</p>}
         </div>
-        <button type="submit">Agregar Producto</button>
-        </form>
-    );
-}
-
+        <button type="button" onClick={handleCancelar}>Cancelar</button>
+        <button type="button" onClick={() => handleAgregar(producto)}>Agregar</button>
+        <button type="button" onClick={() => handleActualizar(producto)}>Actualizar</button>
+        <button type="button" onClick={() => handleEliminar(producto)}>Eliminar</button>
+        </form>*/
 export default AdminProductos;

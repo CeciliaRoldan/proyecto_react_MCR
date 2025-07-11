@@ -10,6 +10,7 @@ import DetalleProducto from './components/DetalleProducto'
 import Login from './components/Login';
 import RutaProtegida from './components/RutaProtegida';
 import AdminProductos from './components/AdminProductos';
+import FormProducto from './components/FormProducto';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -30,8 +31,9 @@ function App() {
         <Route path="/producto/:id" element={<DetalleProducto />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={
-           <AdminProductos/> } 
+          <AdminProductos/> } 
         />
+        <Route path="/editar/:modo/:id" element={<FormProducto />} />
         <Route path="/carrito" element={
           <RutaProtegida> <Carrito/> </RutaProtegida> } 
         />

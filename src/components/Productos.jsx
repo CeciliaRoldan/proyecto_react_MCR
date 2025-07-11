@@ -1,40 +1,28 @@
 import React, { useState,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
+import { ProductosContext } from '../context/ProductosContext';
 
 function Productos({ }) {
     
     const { categoria } = useParams();
     
     const { agregarAlCarrito } = useContext(CarritoContext);
+    const { productos, cargando, error } = useContext(ProductosContext);
 
-    const [productos, setProductos] = useState([]);
-    const [cargando, setCargando] = useState(true);
-    const [error, setError] = useState(null);
+    const [listaProductos, setListaProductos] = useState([]);
 
-    
     useEffect(()=>{
-        setCargando(true);
-
-        let url = 'https://686a845ce559eba908703286.mockapi.io/api/v1/productos';
+        //console.log('productos ' + productos);
 
         if (categoria) 
-            url = url + '?nombre=' + categoria;
+            setListaProductos(productos.filter(producto => producto.nombre === categoria));
+        else 
+            setListaProductos(productos);
         
-        
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            setProductos(data); 
-            setCargando(false);
-        })
-        .catch(error => {
-            console.log(error);
-            setError("Ocurrio un error al cargar los personajes!");
-            setCargando(false);
-        });
-    }, [categoria]);
+    }, [productos, categoria]);
     
 
     if (cargando) return (
@@ -51,11 +39,11 @@ function Productos({ }) {
     
     <div style={{display:"flex",gap:"20px",flexWrap:"wrap"}} class="">
         {
-            productos.map((producto)=>( 
+            listaProductos.map((producto)=>( 
                 <div class="card" href={`/producto/${producto.id}`} style={{width: "22rem"}} >
-                    <a href={`/producto/${producto.id}`} class="card-header text-decoration-none" style={{backgroundColor:"aquamarine"}}>
+                    <Link to={`/producto/${producto.id}`} className="card-header text-decoration-none" style={{backgroundColor:"aquamarine"}}>
                         {producto.nombre}
-                    </a>
+                    </Link>
                     <div class="card-body">
                         <div class="text-center mb-3">
                             <img class="card-img m-auto" src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width:"150px",height:"200px"}}></img>
