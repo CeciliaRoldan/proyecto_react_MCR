@@ -8,6 +8,7 @@ import { CarritoProvider } from './context/CarritoContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ProductosProvider } from './context/ProductosContext.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BusquedaProvider } from './context/BusquedaContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -17,7 +18,9 @@ root.render(
       <ProductosProvider>
         <CarritoProvider>
           <AuthProvider>
-            <App /> 
+            <BusquedaProvider>
+              <App /> 
+            </BusquedaProvider>
           </AuthProvider>
         </CarritoProvider>
       </ProductosProvider>
