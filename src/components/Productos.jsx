@@ -24,7 +24,7 @@ function Productos({ }) {
 
     // Paginacion
 
-    const productosPorPagina = 9;
+    const productosPorPagina = 12;
     const [ paginaActual, setPaginaActual ] = useState(1);
 
     // Calcular el índice de los productos a mostrar en la página actual
@@ -65,54 +65,77 @@ function Productos({ }) {
 
 
   return (
-    <div>
-        <div style={{display:"flex",gap:"20px",flexWrap:"wrap"}} class="">
-            <input
-                type="text"
-                placeholder="Buscar productos..."
-                className="form-control mb-3"
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-            />
+    <div className="container mt-2">
+        <div className='row'>
+            <div className='col-12'>
+                <input
+                    type="text"
+                    placeholder="Buscar productos..."
+                    className="form-control mb-3"
+                    value={busqueda}
+                    onChange={(e) => setBusqueda(e.target.value)}
+                />
+            </div>
+        </div>
+        <div className='row'>
             {
                 productosActuales.map((producto)=>( 
-                    <div class="card" href={`/producto/${producto.id}`} style={{width: "22rem"}} >
-                        <Link to={`/producto/${producto.id}`} className="card-header text-decoration-none" style={{backgroundColor:"aquamarine"}}>
-                            {producto.nombre}
-                        </Link>
-                        <div class="card-body">
-                            <div class="text-center mb-3">
-                                <img class="card-img m-auto" src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width:"150px",height:"200px"}}></img>
+                    <div key={producto.id} className='col-12 col-md-6 col-lg-4 mb-4'>
+                        <div class="card h-100">
+                            <Link to={`/producto/${producto.id}`} 
+                                  className="card-header text-decoration-none" 
+                                  style={{backgroundColor:"aquamarine"}} 
+                            >
+                                {producto.nombre}
+                            </Link>
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <img class="card-img m-auto" 
+                                        src={producto.imagen} 
+                                        alt={"Imagen " + producto.nombre} 
+                                        style={{width: "150px", height: "200px"}}
+                                    />
+                                </div>
+                                <p>{producto.descripcion.slice(0,100)}</p>
                             </div>
-                            <p>{producto.descripcion.slice(0,100)}</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <span>{producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'}</span>
-                            <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark">Agregar al Carrito</button>
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                <span>{producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'}</span>
+                                <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark">Agregar al Carrito</button>
+                            </div>
                         </div>
                     </div>
                 ))  
             }
         </div>
-        <div className="d-flex flex-wrap">
+
+        {/* Paginacion */}
+        <div className="row justify-content-center">
+            <div className='col-auto'>
             { paginaActual > 1 && (
-                <button type="button" class="btn btn-outline-primary my-4" onClick={() => cambiarPagina(paginaActual - 1)}>Anterior</button>
+                <button type="button" 
+                        class="btn btn-outline-primary my-4" 
+                        onClick={() => cambiarPagina(paginaActual - 1)}
+                >
+                    Anterior
+                </button>
             )}
-            <div className="my-4">
+            </div>
+            <div className="col-auto my-4">
                 {Array.from({ length: totalPaginas }, (_, index) => (
                 <button
                     key={index + 1}
-                    className={`btn mx-1 ${paginaActual === index + 1 ?
-                    "btn-primary" : "btn-outline-primary"}`}
+                    className={`btn mx-1 ${paginaActual === index + 1 ? "btn-primary" : "btn-outline-primary"}`}
                     onClick={() => cambiarPagina(index + 1)}
                 >
                     {index + 1}
                 </button>
                 ))}
             </div>
-            { paginaActual < totalPaginas && (
-                <button type="button" class="btn btn-outline-primary my-4" onClick={() => cambiarPagina(paginaActual + 1)}>Siguiente</button>
-            )}
+            <div className='col-auto'>
+                { paginaActual < totalPaginas && (
+                    <button type="button" class="btn btn-outline-primary my-4" onClick={() => cambiarPagina(paginaActual + 1)}>Siguiente</button>
+                )}
+            </div>
         </div>
     </div>
   );

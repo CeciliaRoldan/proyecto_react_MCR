@@ -31,27 +31,34 @@ export default function Login({ }) {
 
   return (
     <Container className=''>
+        
         <form onSubmit={handleSubmit}>
-        <h2>Iniciar sesión</h2>
-        <div>
-            <label style={{width: "8rem"}} >Usuario:</label>
-            <input
-            style={{width: "15rem"}}
-            type="text"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            />
+        <h1 className='col-12 col-lg-4 col-md-6 mt-4 mb-4 mx-auto'>Iniciar sesión</h1>
+        <div className='row'>
+            <div className='col-12 col-lg-4 col-md-6 mb-3 mx-auto'>
+                <label className='form-label' >Usuario:</label>
+                <input className='form-control' 
+                       type="text"
+                       value={usuario}
+                       onChange={(e) => setUsuario(e.target.value)}
+                />
+            </div>
         </div>
-        <div>
-            <label style={{width: "8rem"}}>Contraseña:</label>
-            <input
-            style={{width: "15rem"}}
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            />
+        <div className='row'>
+            <div className='col-12 col-lg-4 col-md-6 mb-3 mx-auto'>
+                <label className='form-label'>Contraseña:</label>
+                <input className='form-control' 
+                       type="password"
+                       value={password}
+                       onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
         </div>
-        <button type="submit">Aceptar</button>
+        <div className='row mt-3'>
+            <div className='col-12 col-lg-4 col-md-6 text-end mx-auto'>
+                <button type="submit">Aceptar</button>
+            </div>
+        </div>
         </form>
 
     </Container>

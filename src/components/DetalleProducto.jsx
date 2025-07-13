@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
@@ -34,30 +34,33 @@ function DetalleProducto({  }) {
     if (error) return ( <h3>{error}</h3> );
 
     return (
-        <div class="container" >
-            <Row>
-                <Col>
+        <Container>
+            <div className='row'>
+                <div className='col-12 col-md-6 mt-4 mb-4'>
                     <h1>{producto.nombre}</h1>
-                </Col>
-            </Row>
-            <Row>
-                <Col className="d-flex align-items-center" > 
-                    <img src={producto.imagen} alt={"Imagen "+producto.nombre} style={{width: "500px", height: "500px"}}/>
-                </Col>
-                <Col>
+                </div>
+            </div>
+            <div className='row mb-3'>
+                <div className='col-12 col-md-6 col-lg-auto d-flex align-items-center' > 
+                    <img src={producto.imagen} 
+                         alt={"Imagen "+producto.nombre} 
+                         className='img-fluid border border-dark rounded-3'
+                         style={{width: "400px", height: "400px"}}/>
+                </div>
+                <div className='col-12 col-md-6 col-lg-auto mt-4 mt-md-0 p-4'>
                     <p>{producto.descripcion}</p>
-                </Col>
-            </Row>
-            <Row>
-                <Col className="d-flex pt-3">
+                </div>
+            </div>
+            <div className='row'>
+                <div className='col d-flex pt-3'>
                     <h4> {producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'} </h4>
 
                     <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark ms-auto">
                         Agregar al Carrito
                     </button>
-                </Col>
-            </Row>
-        </div> 
+                </div>
+            </div>
+        </Container> 
     );
 }
 

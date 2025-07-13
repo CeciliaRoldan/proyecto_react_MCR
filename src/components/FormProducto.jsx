@@ -182,46 +182,58 @@ const handleEliminar = async (producto) => {
     );
 
     return (
-        <form>
-        <h2>Agregar Producto</h2>
-        <div>
-            <label>Nombre:</label>
-            <input
-                type="text"
-                name="nombre"
-                value={producto.nombre}
-                onChange={handleChange}
-            />
-            {errores.nombre && <p style={{ color: 'red' }}>{errores.nombre}</p>}
+        <form className="container mt-2">
+        <h2 className='mb-4'>Agregar Producto</h2>
+        <div className='row'>
+            <div className='col-12 mb-3'>
+                <label className='form-label'>Nombre:</label>
+                <input
+                    type="text"
+                    name="nombre"
+                    value={producto.nombre}
+                    onChange={handleChange}
+                    className='form-control' 
+                />
+                {errores.nombre && <p className='text-danger'>{errores.nombre}</p>}
+            </div>
+            <div className='col-12 mb-3'>
+                <label className='form-label'>Precio:</label>
+                <input
+                    type="number"
+                    name="precio"
+                    value={producto.precio}
+                    onChange={handleChange}
+                    className='form-control' 
+                    required
+                />
+                {errores.precio && <p className='text-danger'>{errores.precio}</p>}
+            </div>
+            <div className='col-12 mb-3'>
+                <label className='form-label'>Descripción:</label>
+                <textarea
+                    name="descripcion"
+                    value={producto.descripcion}
+                    onChange={handleChange}
+                    className='form-control' 
+                />
+                {errores.descripcion && <p className='text-danger'>{errores.descripcion}</p>}
+            </div>
         </div>
-        <div>
-            <label>Precio:</label>
-            <input
-                type="number"
-                name="precio"
-                value={producto.precio}
-                onChange={handleChange}required
-            />
-            {errores.precio && <p style={{ color: 'red' }}>{errores.precio}</p>}
+        <div className='row'>
+            <div className='col'>
+                <button type="button" className='btn btn-primary me-2' onClick={handleCancelar}>Cancelar</button>
+                { modo === 'editar' && ( 
+                    <>
+                        <button type="button" className='btn btn-danger' onClick={() => handleEliminar(producto)}>Eliminar</button>
+                        <button type="button" className='btn btn-primary float-end' onClick={() => handleEditar(producto)}>Actualizar</button>
+                    </>
+                )}
+                { modo === 'agregar' && (
+                    <button type="button" className='btn btn-primary me-2 float-end' onClick={() => handleAgregar(producto)}>Agregar</button>
+                )}
+            </div>
         </div>
-        <div>
-            <label>Descripción:</label>
-            <textarea
-                name="descripcion"
-                value={producto.descripcion}
-                onChange={handleChange}
-            />
-            {errores.descripcion && <p style={{ color: 'red'}}>{errores.descripcion}</p>}
-        </div>
-        <button type="button" onClick={handleCancelar}>Cancelar</button>
-        { modo === 'agregar' && (
-            <button type="button" onClick={() => handleAgregar(producto)}>Agregar</button>
-        )}
-        { modo === 'editar' && ( <>
-            <button type="button" onClick={() => handleEditar(producto)}>Actualizar</button>
-            <button type="button" onClick={() => handleEliminar(producto)}>Eliminar</button>
-        </>)}
-        </form>
+    </form>
     );
 }
 

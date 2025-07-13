@@ -30,12 +30,12 @@ function Carrito ({ }) {
                     <div class="col">
                         <span class="h4">{producto.nombre} { producto.cantidad > 1 && (<span>(x{producto.cantidad})</span>) }</span>
                     </div>
-                    <div class="col">
+                    <div class="col-2 col-md-auto">
                         <div class="d-flex justify-content-end">
                             <p>$ {producto.precio}</p>
                         </div>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2 col-md-1">
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-outline-danger" onClick={() => handleEliminar(producto)}><FaTrash /></button>
                         </div>
@@ -53,7 +53,7 @@ function Carrito ({ }) {
                     <p>$ {total.toFixed(2)}</p>
                 </div>
             </div>
-            <div class="col-1"></div> 
+            <div class="col-2 col-md-1"></div> 
         </div> 
     </div>
     )

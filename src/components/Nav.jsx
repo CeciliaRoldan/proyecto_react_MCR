@@ -15,21 +15,20 @@ function Nav({ }) {
 
   return (
     <Navbar expand="sm" style={{backgroundColor:"lavender"}}>
-      <Container>
-        <BootstrapNav className="me-auto">
+      <Container className="d-flex flex-column flex-sm-row align-items-start">
+        <BootstrapNav className="flex-column flex-sm-row">
             <BootstrapNav.Link as={Link} to="/">Todos</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/productos/gorilla">Gorilas</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/productos/snake">Serpientes</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/productos/crocodile">Cocodrilos</BootstrapNav.Link>
         </BootstrapNav>
-        <BootstrapNav className="mr-2">
+        <BootstrapNav className="flex-column flex-sm-row">
             <BootstrapNav.Link as={Link} to="/login">{ user ? user : "Login" }</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/admin">{ user ? "Administrar" : "Administrar" }</BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/carrito">{ user ? `Carrito [${cantProductos}]`: "" }</BootstrapNav.Link>
         </BootstrapNav>
-
       </Container>
-    </Navbar>
+    </Navbar>    
   );
 }
 
