@@ -12,7 +12,9 @@ import RutaProtegida from './components/RutaProtegida';
 import AdminProductos from './components/AdminProductos';
 import FormProducto from './components/FormProducto';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 
 //          <RutaProtegida> <AdminProductos/> </RutaProtegida> } 
 
@@ -22,7 +24,12 @@ function App() {
 
   return (
   <div className="d-flex flex-column min-vh-100">
-    <Header/>
+    <Helmet>
+      <title>Denome</title>
+      <meta name="description" content="Explora nuestra variedad de productos." />
+    </Helmet>
+    <ToastContainer autoClose={2000}/>
+    <Header/>              
     <Nav/>
     <div className="flex-grow-1 p-3">
       <Routes>

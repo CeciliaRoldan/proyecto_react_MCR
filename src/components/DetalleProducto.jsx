@@ -16,10 +16,8 @@ function DetalleProducto({  }) {
     const [producto, setProducto] = useState(null);
 
     useEffect(()=>{
-        //console.log('productos detalle ', productos);
 
         setProducto(productos.find(p => String(p.id) === String(id)));
-
 
     }, [productos]);
 
@@ -55,7 +53,7 @@ function DetalleProducto({  }) {
                 <div className='col d-flex pt-3'>
                     <h4> {producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'} </h4>
 
-                    <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark ms-auto">
+                    <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark ms-auto" aria-label={`Agregar ${producto.nombre} al carrito`}>
                         Agregar al Carrito
                     </button>
                 </div>

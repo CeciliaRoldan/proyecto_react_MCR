@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-
+import { toast } from "react-toastify";
 
 export const CarritoContext = createContext();
 
@@ -30,26 +30,15 @@ export const CarritoProvider = ({ children }) =>
                                                     nombre: producto_nuevo.nombre, 
                                                     precio: producto_nuevo.precio,
                                                     cantidad: 1 }]);
-        
-        Swal.fire({
-        icon: "success",
-        title: 'Se agrego '+ producto_nuevo.nombre +' al carrito',
-        showConfirmButton: false,
-        timer: 1000
-        });
+
+        toast.success('Se agrego '+ producto_nuevo.nombre +' al carrito');
     }
 
 
     const handleEliminar = (producto_elim) => {
 
         setCarrito(carrito.filter(producto => producto.id !== producto_elim.id));
-        
-        Swal.fire({
-            icon: "success",
-            title: 'Se eliminó el producto '+ producto_elim.nombre +' del carrito',
-            showConfirmButton: false,
-            timer: 1000
-        });
+        toast.success('Se eliminó el producto '+ producto_elim.nombre +' del carrito');
     }
 
 
@@ -63,13 +52,7 @@ export const CarritoProvider = ({ children }) =>
         }).then((result) => {
             if (result.isConfirmed) {
                 setCarrito([]);
-                
-                Swal.fire({
-                icon: "success",
-                title: 'Se vació el carrito',
-                showConfirmButton: false,
-                timer: 1000
-                });
+                toast.success('Se vació el carrito');
             }
         });
     }

@@ -4,7 +4,20 @@ import { useContext } from 'react';
 import { ProductosContext } from '../context/ProductosContext';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import styled from "styled-components";
+import { toast } from "react-toastify";
 
+
+const Boton = styled.button`
+  background-color: aquamarine;
+  border: 1px solid black;
+  transition: transform 0.3s ease;
+  &:hover {
+    background-color: aquamarine;
+    border: 1px solid black;
+    transform: scale(1.10);
+  }
+`;
 
 
 
@@ -27,14 +40,10 @@ function FormProducto({}) {
 
 
     useEffect(()=>{
+
         if (modo === 'editar') {
             setProducto(productos.find(p => String(p.id) === String(id)));
         }
-        console.log('Modo: ', modo);
-        console.log('ID: ', id);
-        //console.log('productos detalle ', productos);
-        //let url = 'https://686a845ce559eba908703286.mockapi.io/api/v1/productos/'+id;
-        //fetchProductos(url);
 
     }, [productos, id, modo]);
 
@@ -77,20 +86,11 @@ function FormProducto({}) {
             const data = await respuesta.json();
             
             agregarProducto(data);
-            Swal.fire({
-                icon: "success",
-                title: `Se agregó el producto "${producto.nombre}"`,
-                showConfirmButton: false,
-                timer: 1000
-            });
-            //alert('Producto agregado correctamente');
+            await toast.success(`Se agregó el producto "${producto.nombre}"`);
+            
         } catch (error) {
             console.error(error.message);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: error.message,
-            });
+            toast.error(error.message);
         }
         navigate('/admin');
     };
@@ -111,20 +111,11 @@ function FormProducto({}) {
             const data = await respuesta.json();
 
             editarProducto(producto);
-            Swal.fire({
-                icon: "success",
-                title: `Se actualizó el producto ${producto.nombre}`,
-                showConfirmButton: false,
-                timer: 1000
-            });
-            //alert('Producto actualizado correctamente');
+            await toast.success(`Se actualizó el producto ${producto.nombre}`);
+
         } catch (error) {
             console.error(error.message);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: error.message,
-            });
+            toast.error(error.message);
         }
         navigate('/admin');
     };
@@ -149,20 +140,11 @@ const handleEliminar = async (producto) => {
             const data = await respuesta.json();
 
             eliminarProducto(producto.id);
-            await Swal.fire({
-                icon: 'success',
-                title: `Se eliminó el producto ${producto.nombre}`,
-                showConfirmButton: false,
-                timer: 1000,
-            });
+            await toast.success(`Se eliminó el producto ${producto.nombre}`);
 
         } catch (error) {
             console.error(error.message);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: error.message,
-            });
+            toast.error(error.message);
         }
     }
     navigate('/admin');
@@ -193,6 +175,7 @@ const handleEliminar = async (producto) => {
                     value={producto.nombre}
                     onChange={handleChange}
                     className='form-control' 
+                    placeholder='Ingrese el nombre del producto'
                 />
                 {errores.nombre && <p className='text-danger'>{errores.nombre}</p>}
             </div>
@@ -204,6 +187,7 @@ const handleEliminar = async (producto) => {
                     value={producto.precio}
                     onChange={handleChange}
                     className='form-control' 
+                    placeholder='Ingrese el precio del producto'
                     required
                 />
                 {errores.precio && <p className='text-danger'>{errores.precio}</p>}
@@ -215,21 +199,40 @@ const handleEliminar = async (producto) => {
                     value={producto.descripcion}
                     onChange={handleChange}
                     className='form-control' 
+                    placeholder='Ingrese la descripción del producto'
                 />
                 {errores.descripcion && <p className='text-danger'>{errores.descripcion}</p>}
             </div>
         </div>
         <div className='row'>
             <div className='col'>
-                <button type="button" className='btn btn-primary me-2' onClick={handleCancelar}>Cancelar</button>
+                <button type="button" className='btn btn-outline-danger me-2' onClick={handleCancelar} aria-label='Cancelar los cambios'>Cancelar</button>
                 { modo === 'editar' && ( 
                     <>
-                        <button type="button" className='btn btn-danger' onClick={() => handleEliminar(producto)}>Eliminar</button>
-                        <button type="button" className='btn btn-primary float-end' onClick={() => handleEditar(producto)}>Actualizar</button>
+                        <button type="button" 
+                                className='btn btn-danger' 
+                                aria-label='Eliminar el producto de la lista'
+                                onClick={() => handleEliminar(producto)} 
+                        >
+                            Eliminar
+                        </button>
+                        <Boton type="button" 
+                               className='btn float-end' 
+                               aria-label='Actualizar la infomación del producto'
+                               onClick={() => handleEditar(producto)}
+                        >
+                            Actualizar
+                        </Boton>
                     </>
                 )}
                 { modo === 'agregar' && (
-                    <button type="button" className='btn btn-primary me-2 float-end' onClick={() => handleAgregar(producto)}>Agregar</button>
+                    <Boton type="button" 
+                           className='btn me-2 float-end' 
+                           aria-label='Agregar el producto'
+                           onClick={() => handleAgregar(producto)}
+                    >
+                        Agregar
+                    </Boton>
                 )}
             </div>
         </div>

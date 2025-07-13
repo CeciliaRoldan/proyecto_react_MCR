@@ -1,5 +1,4 @@
 import { createContext, useState, useContext } from 'react';
-import Swal from 'sweetalert2';
 
 
 export const AuthContext = createContext();

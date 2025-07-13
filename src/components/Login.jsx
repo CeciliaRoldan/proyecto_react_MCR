@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import { CarritoContext } from '../context/CarritoContext';
 import { Container } from 'react-bootstrap';
-import Swal from 'sweetalert2';
+import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 
 export default function Login({ }) {
@@ -19,19 +20,19 @@ export default function Login({ }) {
         if (usuario === 'admin' && password === '1234') {
             login(usuario);
             navigate('/');
+            toast.success('Bienvenido ' +  usuario);
         } else {
-            Swal.fire({
-            icon: "warning",
-            title: 'Credenciales incorrectas ... pruebe con admin/1234',
-            showConfirmButton: false,
-            timer: 1500
-            });
+            toast.error('Credenciales incorrectas ... pruebe con admin/1234');
         }
     };
 
   return (
     <Container className=''>
-        
+        <Helmet>
+            <title>Login | Denome</title>
+            <meta name="description" content="Accedé a tu cuenta para acceder al carrito." />
+        </Helmet>
+
         <form onSubmit={handleSubmit}>
         <h1 className='col-12 col-lg-4 col-md-6 mt-4 mb-4 mx-auto'>Iniciar sesión</h1>
         <div className='row'>
@@ -41,6 +42,7 @@ export default function Login({ }) {
                        type="text"
                        value={usuario}
                        onChange={(e) => setUsuario(e.target.value)}
+                       aria-label='Usuario'
                 />
             </div>
         </div>
@@ -51,12 +53,13 @@ export default function Login({ }) {
                        type="password"
                        value={password}
                        onChange={(e) => setPassword(e.target.value)}
+                       aria-label='Contraseña'
                 />
             </div>
         </div>
         <div className='row mt-3'>
             <div className='col-12 col-lg-4 col-md-6 text-end mx-auto'>
-                <button type="submit">Aceptar</button>
+                <button type="submit" aria-label='Aceptar'>Aceptar</button>
             </div>
         </div>
         </form>

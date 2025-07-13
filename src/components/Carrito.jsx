@@ -19,7 +19,13 @@ function Carrito ({ }) {
             </div>
             <div class="col">
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-danger" onClick={() => handleVaciar()}>Vaciar Carrito</button>
+                    <button type="button" 
+                            class="btn btn-outline-danger" 
+                            aria-label='Vaciar el carrito'
+                            onClick={() => handleVaciar()}
+                    >
+                        Vaciar Carrito
+                    </button>
                 </div>
             </div>
         </div>                  
@@ -37,7 +43,13 @@ function Carrito ({ }) {
                     </div>
                     <div class="col-2 col-md-1">
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-outline-danger" onClick={() => handleEliminar(producto)}><FaTrash /></button>
+                            <button type="button" 
+                                    class="btn btn-outline-danger" 
+                                    aria-label={`Eliminar el producto ${producto.nombre} del carrito`}
+                                    onClick={() => handleEliminar(producto)}
+                            >
+                                <FaTrash />
+                            </button>
                         </div>
                     </div>
                 </div> 

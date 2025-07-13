@@ -6,6 +6,16 @@ import { CarritoContext } from '../context/CarritoContext';
 import { ProductosContext } from '../context/ProductosContext';
 import { useBusqueda } from "../context/BusquedaContext";
 import { Col, Row } from 'react-bootstrap';
+import styled from "styled-components";
+import { Helmet } from "react-helmet-async";
+
+const Imagen = styled.img`
+  width: 300px;
+  height: 300px;
+  border: 1px solid lightgrey;
+  border-radius: 8px;
+  object-fit: cover;
+`;
 
 
 function Productos({ }) {
@@ -17,8 +27,6 @@ function Productos({ }) {
     const { busqueda, setBusqueda } = useBusqueda();
 
     const [listaProductos, setListaProductos] = useState([]);
-
-   // const [busqueda, setBusqueda] = useState("");
 
 
 
@@ -65,79 +73,95 @@ function Productos({ }) {
 
 
   return (
-    <div className="container mt-2">
-        <div className='row'>
-            <div className='col-12'>
-                <input
-                    type="text"
-                    placeholder="Buscar productos..."
-                    className="form-control mb-3"
-                    value={busqueda}
-                    onChange={(e) => setBusqueda(e.target.value)}
-                />
+    <>
+        <Helmet>
+          <title>{categoria ? `${categoria} | Denome` : "Productos | Denome"}</title>
+          <meta name="description" content="Explora nuestra variedad de productos." />
+        </Helmet>
+        <div className="container mt-2">
+            <div className='row'>
+                <div className='col-12'>
+                    <input
+                        type="text"
+                        placeholder="Buscar productos..."
+                        className="form-control mb-3"
+                        value={busqueda}
+                        onChange={(e) => setBusqueda(e.target.value)}
+                        aria-label="Buscar productos"
+                    />
+                </div>
+                
             </div>
-        </div>
-        <div className='row'>
-            {
-                productosActuales.map((producto)=>( 
-                    <div key={producto.id} className='col-12 col-md-6 col-lg-4 mb-4'>
-                        <div class="card h-100">
-                            <Link to={`/producto/${producto.id}`} 
-                                  className="card-header text-decoration-none" 
-                                  style={{backgroundColor:"aquamarine"}} 
-                            >
-                                {producto.nombre}
-                            </Link>
-                            <div class="card-body">
-                                <div class="text-center mb-3">
-                                    <img class="card-img m-auto" 
-                                        src={producto.imagen} 
-                                        alt={"Imagen " + producto.nombre} 
-                                        style={{width: "150px", height: "200px"}}
-                                    />
+            <div className='row'>
+                {
+                    productosActuales.map((producto)=>( 
+                        <div key={producto.id} className='col-12 col-md-6 col-lg-4 mb-4'>
+                            <div class="card h-100">
+                                <Link to={`/producto/${producto.id}`} 
+                                    className="card-header text-decoration-none" 
+                                    style={{backgroundColor:"aquamarine"}} 
+                                    aria-label={`Ir al detalle de ${producto.nombre}`}
+                                >
+                                    {producto.nombre}
+                                </Link>
+                                <div class="card-body">
+                                    <div class="text-center mb-3">
+                                        <Imagen class="card-img m-auto" 
+                                            src={producto.imagen} 
+                                            alt={"Imagen " + producto.nombre} 
+                                        />
+                                    </div>
+                                    <p>{producto.descripcion.slice(0,100)}</p>
                                 </div>
-                                <p>{producto.descripcion.slice(0,100)}</p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-between align-items-center">
-                                <span>{producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'}</span>
-                                <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark">Agregar al Carrito</button>
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <span>{producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'}</span>
+                                    <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark" aria-label={`Agregar ${producto.nombre} al carrito`}>Agregar al Carrito</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))  
-            }
-        </div>
+                    ))  
+                }
+            </div>
 
-        {/* Paginacion */}
-        <div className="row justify-content-center">
-            <div className='col-auto'>
-            { paginaActual > 1 && (
-                <button type="button" 
-                        class="btn btn-outline-primary my-4" 
-                        onClick={() => cambiarPagina(paginaActual - 1)}
-                >
-                    Anterior
-                </button>
-            )}
-            </div>
-            <div className="col-auto my-4">
-                {Array.from({ length: totalPaginas }, (_, index) => (
-                <button
-                    key={index + 1}
-                    className={`btn mx-1 ${paginaActual === index + 1 ? "btn-primary" : "btn-outline-primary"}`}
-                    onClick={() => cambiarPagina(index + 1)}
-                >
-                    {index + 1}
-                </button>
-                ))}
-            </div>
-            <div className='col-auto'>
-                { paginaActual < totalPaginas && (
-                    <button type="button" class="btn btn-outline-primary my-4" onClick={() => cambiarPagina(paginaActual + 1)}>Siguiente</button>
+            {/* Paginacion */}
+            <div className="row justify-content-center">
+                <div className='col-auto'>
+                { paginaActual > 1 && (
+                    <button type="button" 
+                            class="btn btn-outline-dark my-4" 
+                            onClick={() => cambiarPagina(paginaActual - 1)}
+                            aria-label='Ir a la pagina anterior'
+                    >
+                        Anterior
+                    </button>
                 )}
+                </div>
+                <div className="col-auto my-4">
+                    {Array.from({ length: totalPaginas }, (_, index) => (
+                    <button
+                        key={index + 1}
+                        className={`btn mx-1 ${paginaActual === index + 1 ? "btn-dark" : "btn-outline-dark"}`}
+                        onClick={() => cambiarPagina(index + 1)}
+                        aria-label={`Ir a la página ${index + 1}`}
+                    >
+                        {index + 1}
+                    </button>
+                    ))}
+                </div>
+                <div className='col-auto'>
+                    { paginaActual < totalPaginas && (
+                        <button type="button" 
+                                class="btn btn-outline-dark my-4" 
+                                onClick={() => cambiarPagina(paginaActual + 1)}
+                                aria-label='Ir a la pagina siguiente'
+                        >
+                            Siguiente
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
-    </div>
+    </>
   );
 }
 
