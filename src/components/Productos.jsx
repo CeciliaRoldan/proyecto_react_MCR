@@ -1,12 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import styled from "styled-components";
+import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
 import { ProductosContext } from '../context/ProductosContext';
 import { useBusqueda } from "../context/BusquedaContext";
-import { Col, Row } from 'react-bootstrap';
-import styled from "styled-components";
 import { Helmet } from "react-helmet-async";
 
 const Imagen = styled.img`
@@ -17,9 +16,18 @@ const Imagen = styled.img`
   object-fit: cover;
 `;
 
+const Tarjeta = styled.div`
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
 
 function Productos({ }) {
     
+    const productosPorPagina = 12;
     const { categoria } = useParams();
     
     const { agregarAlCarrito } = useContext(CarritoContext);
@@ -31,16 +39,13 @@ function Productos({ }) {
 
 
     // Paginacion
-
-    const productosPorPagina = 12;
     const [ paginaActual, setPaginaActual ] = useState(1);
 
-    // Calcular el índice de los productos a mostrar en la página actual
     const indiceUltimoProducto = paginaActual * productosPorPagina;
     const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
     const productosActuales = listaProductos.slice(indicePrimerProducto, indiceUltimoProducto);
-    // Cambiar de página
-    const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+
+    const totalPaginas = Math.ceil(listaProductos.length / productosPorPagina);
     const cambiarPagina = (numeroPagina) => setPaginaActual(numeroPagina);
 
 
@@ -58,6 +63,7 @@ function Productos({ }) {
         }
 
         setListaProductos(resultado);
+        setPaginaActual(1);
     }, [productos, categoria, busqueda]);
 
     
@@ -95,7 +101,7 @@ function Productos({ }) {
             <div className='row'>
                 {
                     productosActuales.map((producto)=>( 
-                        <div key={producto.id} className='col-12 col-md-6 col-lg-4 mb-4'>
+                        <Tarjeta key={producto.id} className='col-12 col-md-6 col-lg-4 mb-4'>
                             <div class="card h-100">
                                 <Link to={`/producto/${producto.id}`} 
                                     className="card-header text-decoration-none" 
@@ -115,10 +121,15 @@ function Productos({ }) {
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <span>{producto.precio ? `Precio: $ ${producto.precio}` : 'No disponible'}</span>
-                                    <button onClick={() => agregarAlCarrito(producto)} class="btn btn-dark" aria-label={`Agregar ${producto.nombre} al carrito`}>Agregar al Carrito</button>
+                                    <button class="btn btn-dark" 
+                                            onClick={() => agregarAlCarrito(producto)} 
+                                            aria-label={`Agregar ${producto.nombre} al carrito`}
+                                    >
+                                        Agregar al Carrito
+                                    </button>
                                 </div>
                             </div>
-                        </div>
+                        </Tarjeta>
                     ))  
                 }
             </div>

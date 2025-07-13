@@ -1,5 +1,3 @@
-import React from 'react';
-import { useState } from "react";
 import { useContext } from 'react';
 import { CarritoContext } from '../context/CarritoContext';
 import { FaTrash } from 'react-icons/fa';
@@ -13,7 +11,7 @@ function Carrito ({ }) {
     
     return(
     <div class="container" >  
-        <div class="row">
+        <div class="row mt-4 mb-4">
             <div class="col">
                 <h3 className="p-2">Disfraces seleccionados:</h3>
             </div>

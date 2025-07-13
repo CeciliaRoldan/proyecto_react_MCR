@@ -14,13 +14,15 @@ export const ProductosProvider = ({ children }) =>
         setCargando(true);
 
         try {
-            const respuesta = await
-            fetch(url);
+            const respuesta = await fetch(url);
+
             if (!respuesta.ok) {
                 throw new Error('Ocurrio un error al cargar los productos!');
             }
+
             const data = await respuesta.json();
             setProductos(data);
+
         } catch (error) {
             console.error(error.message);
             setError(error.message);
@@ -30,10 +32,10 @@ export const ProductosProvider = ({ children }) =>
     };
 
     useEffect(()=>{
+
         let url = 'https://686a845ce559eba908703286.mockapi.io/api/v1/productos';
-        
         fetchProductos(url);
-        console.log('FETCHING ', productos);
+        
     }, []);
 
 

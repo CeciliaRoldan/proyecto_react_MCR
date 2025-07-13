@@ -17,7 +17,7 @@ function Nav({ }) {
 
   return (
     <Navbar expand="sm" style={{backgroundColor:"lavender"}}>
-      <Container className="d-flex flex-column flex-sm-row align-items-start">
+      <Container className="d-flex flex-column flex-sm-row align-items-start mt-5">
         <BootstrapNav className="flex-column flex-sm-row">
             <BootstrapNav.Link as={Link} to="/" aria-label='Ir a home'>
               Todos
@@ -37,7 +37,7 @@ function Nav({ }) {
               { user ? "Logout" : "Login" }
             </BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/admin" aria-label='Ir a administrar un producto'>
-              { user ? "Administrar Productos" : "Administrar" }
+              { user ? "Administrar Productos" : "" }
             </BootstrapNav.Link>
             <BootstrapNav.Link as={Link} to="/carrito" aria-label='Ir al carrito'>
               { user && <><FaShoppingCart size={22}/>&ensp;[{ cantProductos }]</> }

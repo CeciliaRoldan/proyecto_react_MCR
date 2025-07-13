@@ -1,20 +1,18 @@
-import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx'
 import { CarritoProvider } from './context/CarritoContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ProductosProvider } from './context/ProductosContext.jsx';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BusquedaProvider } from './context/BusquedaContext.jsx';
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <HelmetProvider>
       <Router>
         <ProductosProvider>
@@ -28,5 +26,5 @@ root.render(
         </ProductosProvider>
       </Router>
     </HelmetProvider>
-  </React.StrictMode>
+  </StrictMode>
 );

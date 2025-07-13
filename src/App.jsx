@@ -1,6 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { ToastContainer, toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
@@ -11,16 +13,9 @@ import Login from './components/Login';
 import RutaProtegida from './components/RutaProtegida';
 import AdminProductos from './components/AdminProductos';
 import FormProducto from './components/FormProducto';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Helmet } from "react-helmet-async";
-
-//          <RutaProtegida> <AdminProductos/> </RutaProtegida> } 
 
 
 function App() {
-
 
   return (
   <div className="d-flex flex-column min-vh-100">
@@ -38,9 +33,11 @@ function App() {
         <Route path="/producto/:id" element={<DetalleProducto />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={
-          <AdminProductos/> } 
+          <RutaProtegida> <AdminProductos/> </RutaProtegida> } 
         />
-        <Route path="/editar/:modo/:id" element={<FormProducto />} />
+        <Route path="/editar/:modo/:id" element={
+          <RutaProtegida> <FormProducto/> </RutaProtegida>} 
+        />
         <Route path="/carrito" element={
           <RutaProtegida> <Carrito/> </RutaProtegida> } 
         />

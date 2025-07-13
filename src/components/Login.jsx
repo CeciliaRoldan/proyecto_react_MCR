@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
-import { CarritoContext } from '../context/CarritoContext';
 import { Container } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
@@ -9,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 
 export default function Login({ }) {
 
-    const { login } = useAuthContext();
+    const { login, logout } = useAuthContext();
   
     const [usuario, setUsuario] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +24,10 @@ export default function Login({ }) {
             toast.error('Credenciales incorrectas ... pruebe con admin/1234');
         }
     };
+
+    useEffect(() => {
+        logout();
+    }, []);
 
   return (
     <Container className=''>
@@ -59,7 +62,7 @@ export default function Login({ }) {
         </div>
         <div className='row mt-3'>
             <div className='col-12 col-lg-4 col-md-6 text-end mx-auto'>
-                <button type="submit" aria-label='Aceptar'>Aceptar</button>
+                <button type="submit" className='btn btn-dark' aria-label='Aceptar'>Aceptar</button>
             </div>
         </div>
         </form>
