@@ -4,12 +4,16 @@
 ## Instalación
 
 **Para configurar de forma local ejecutar los siguientes comandos para clonar el repositorio e instalarlo**
+```
 git clone https://github.com/CeciliaRoldan/proyecto_react_MCR.git proyecto_react_MCR
 cd proyecto_react_MCR
 npm install
+```
 
 **Para ejecutar el proyecto:**
+```
 npm run dev
+```
 
 
 ## Aplicación
