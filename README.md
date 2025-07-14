@@ -7,7 +7,7 @@
 ```
 git clone https://github.com/CeciliaRoldan/proyecto_react_MCR.git proyecto_react_MCR
 cd proyecto_react_MCR
-npm install
+npm install --legacy-peer-deps
 ```
 
 **Para ejecutar el proyecto:**
